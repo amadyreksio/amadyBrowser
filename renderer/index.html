@@ -1,0 +1,627 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Amady Browser</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        #upper {
+            width: 100%;
+            height: 50px;
+            position: fixed;
+            top: 50px;
+            left: 0px;
+            background-color: rgb(46, 46, 46);/*29*/
+            
+        }
+        #tabs {
+            width: 100%;
+            height: 50px;
+            position: fixed;
+            top: 0px;
+            left: 0px;
+            background-color: rgb(46, 46, 46);/*29*/
+            display: flex;
+            flex-flow: nowrap;
+          
+        }
+        body {
+            background-color: rgb(36, 36, 36);/*61*/
+        }
+        .btn {
+            width: 35px;
+            height: 35px;
+            border: none;/*solid 2px black*/;
+            border-radius: 8px;
+            background-color: rgb(66,66,66);/*transparent;*/
+            transition: all .2s ease;
+        }
+        .btn2{
+        width: 200px;
+        height: 50px;
+        position: fixed;
+        bottom: 10px;
+        left: 50%;
+        transform: translate(-50%);
+        background-color: rgb(45,45,45);
+        color: white;
+        font-weight: bold;
+        border: solid 2px black;
+        border-radius: 16px;
+        z-index: 1002;
+        transition: all .2s ease;
+        }
+        .btn2:hover{
+        background-color: rgb(65,65,65);
+        }
+        .btn2:active{
+        transform: translate(-50%) scale(0.9);
+        }
+        .btn:hover {
+            background-color: rgba(255, 255, 255, 0.282);
+        }
+        .btn:active {
+            background-color: rgba(17, 23, 41);
+        }
+        #urlbox {
+            margin-top: 6px;
+            position: fixed;
+            right: 5px;
+            left: 115px;
+            height: 30px;
+            background-color: rgb(66, 66, 66);
+            border-radius: 8px;
+            border: none;
+            outline: none;
+            color: white;
+            transition: all .2s ease;
+            padding-left: 30px;
+        }
+        #urlbox:hover {
+            box-shadow: 0px 0px 5px red;
+        }
+        .tab {
+            padding-left: 35px;
+            padding-right: 35px;
+            height: 45px;
+            transform: translate(0px, 5px);
+            color: white;
+            background-color: rgb(66, 66, 66);
+            /*border-left: solid 2px black;
+            border-top: solid 2px black;
+            border-right: solid 2px black;
+            border-bottom: none;*/
+            border: none;
+            border-radius: 16px 16px 16px 16px;
+            font-size: 15px;
+            transition: all .2s ease;
+            position: relative;
+            margin-left: 4px;
+        }
+        .tab:hover {
+            background: none;
+            background-color: rgb(100, 100, 100);
+        }
+        .tab.active {
+            background-color: rgb(80, 80, 80);
+            
+            /*box-shadow: 0px 0px 10px red;*/
+        }
+        .cls {
+            position: absolute;
+            top: -5px;
+            right: -25px;
+            width: 25px;
+            height: 25px;
+            border-radius: 25px;
+            border: none;
+            transform: translate(-20px);
+            font-weight: bold;
+            transition: all .2s ease, border 10s ease;
+        }
+        .cls:hover {
+            background-color: red;
+            color: white;
+        }
+        .cls:active {
+            border: solid 10px black;
+            font-size: 0px;
+        }
+        .brwsr {
+            position: fixed;
+            top: 100px;
+            width: 100%;
+            height: calc(100% - 100px);
+            left: 0px;
+        }
+        #menu1{
+        width: 250px;
+        height: 0px;
+        opacity: 0;
+        position: fixed;
+        bottom: 0px;
+        left: 0px;
+        background-color: rgb(29, 29, 29);
+        border-radius: 16px;
+        border: solid 2px black;
+        transition: all .2s ease;
+        z-index: 1000;
+        }
+        .pasek{
+        width: 100%;
+        height: 50px;
+        background-color: rgb(35,35,35);
+        top: 0px;
+        left: 0px;
+        border-radius: 16px;
+        transition: all .2s ease;
+        }
+        .pasek:hover .pasekthing{
+        background-color: rgb(75, 75, 75);
+        }
+         .pasek:active .pasekthing{
+        background-color: rgb(109, 109, 109)
+        }
+        .pasekthing{
+        width: 10px;
+        height: 10px;
+        background-color: rgb(35,35,35);
+        position: relative;
+        top: -5px;
+        transition: all .2s ease;
+        }
+        .pasek:hover{
+        background-color: rgb(75, 75, 75);
+        }
+        .pasek:active{
+        background-color: rgb(109, 109, 109)
+        }
+        .pop-up-alert{
+        width: 500px;
+        height: 300px;
+        background-color: rgb(29,29,29);
+        border: solid 2px black;
+        border-radius: 16px;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%,-50%);
+        position: fixed;
+        animation: pop-up-showup .4s ease;
+        z-index: 1001;
+        }
+        @keyframes pop-up-showup {
+            0%{transform: translate(-50%,-50%) scale(0.1) rotate(90deg);}
+            100%{transform: translate(-50%,-50%) scale(1) rotate(0deg);}
+        }
+         @keyframes pop-up-hide {
+         0%{transform: translate(-50%,-50%) scale(1) rotate(0deg);}
+            100%{transform: translate(-50%,-50%) scale(0.1) rotate(90deg);}
+        }
+        .popup-hideanim{
+        animation: pop-up-hide .2s ease;
+        }
+        .overly{
+        width: 240px;
+        height: 100%;
+        background: rgb(1,1,1,0.1);
+        backdrop-filter: blur(3px);
+        position: fixed;
+        z-index: 1003;
+        }
+        .loading-circle{
+        width: 50px;
+        height: 50px;
+        background-color: transparent;
+        border: solid 3px white;
+        border-radius: 100%;
+        animation: anim-spin 1s infinte ease-out;
+        }
+        @keyframes anim-spin{
+        0%{transform: rotate(0deg);}
+        100%{transform: rotate(359deg);}
+        }
+        #dragapp{
+        background-color: transparent;
+        left: 0px;
+        right: 100px;
+        top: 0px;
+        height: 50px;
+        position: fixed;
+        -webkit-user-select: none;
+        -webkit-app-region: drag;
+        }
+        .win-manage-btn{
+        width: 25px;
+        height: 25px;
+        border: none;
+        background-color: rgb(66,66,66);
+        border-radius: 100%;
+        margin-left: auto;
+        transition: all .2s ease;
+        }
+        .win-manage-btn:active{
+        transform: scale(0.9);
+        }
+        .win-manage-btn:hover{
+        background-color: rgb(49, 49, 49);
+        }
+        .win-manage-btn-icon{
+        pointer-events: none;
+        width: 20px;
+        position: relative;
+        top: 1px;
+        left: -4px;
+        }
+        #goback{
+        height: 30px;
+        width: 30px;
+        }
+        #goforward{
+        height: 30px;
+        width: 30px;
+        }
+        #refresh{
+        height: 30px;
+        width: 30px;
+        }
+    </style>
+</head>
+<body>
+    <div id="upper">
+        
+        <div id="buttons" style="width: 35px; top: 57px; left: 5px; position: fixed; display: flex; width: 125px;">
+            <button class="btn" id="goback">
+                <img src="./img/left.png" width="25" style="pointer-events: none; transform: translate(-3px);" />
+            </button>
+            <p style="opacity: 0; pointer-events: none;">||</p>
+            <button class="btn" id="refresh">
+                <img src="./img/refresh.png" width="25" style="pointer-events: none; transform: translate(-3px);" />
+            </button>
+            <p style="opacity: 0; pointer-events: none;">||</p>
+            <button class="btn" id="goforward">
+                <img src="./img/right.png" width="25" style="pointer-events: none; transform: translate(-3px);" />
+            </button>
+            <p style="opacity: 0; pointer-events: none;">||</p>
+        </div>
+        
+        <div id="tabs">
+            <span id="dragapp"></span>
+        <div style="width: 200px;height: 45px;background-color: rgb(66,66,66);border-radius: 16px;top: 5px;position: relative;overflow: hidden;padding-left: 10px;margin-left: 5px;">
+            <img src="./icon.png" width="40px" style="padding: 5px;position: relative;top: -3px;">
+            <h3 style="position: relative;top: -65px;left: 50px;color: white;font-family: 'Calibri';">AmadyBrowser</h5>
+        </div>
+        <div style="width: 10px;"></div>
+        
+            <button class="btn" id="addtab" style="position: fixed; left: 500px; color: white; font-weight: bold;top: 10px;">+</button>
+        </div>
+        <img id="ssl-img" src="./img/lock.png" width="20px" style="background-color: rgb(66,66,66);position: relative;top: 12px;left: 120px;z-index: 100;">
+        <input type="text" id="urlbox"/>
+        <img src="./img/search.png" width="20px" style="right: 10px;position: fixed;top: 60px;background-color: rgb(66,66,66);">
+        <div id="xbtns" style="position: fixed;top: 5px;width: 83px;height: 50px;right: 5px;background-color: transparent;display: flex;">
+        <button class="win-manage-btn" id="minimize"><img src="./img/minimize.png" id="minimize-icn" class="win-manage-btn-icon"></button>
+        <button class="win-manage-btn" id="maximize"><img src="./img/maximize.png" id="maximize-icn" class="win-manage-btn-icon"></button>
+        <button class="win-manage-btn" id="close"><img src="./img/close.png" class="win-manage-btn-icon"></button>
+        </div>
+        </div>
+    <button class="btn" id="menubtn1" style="position: fixed;left: 0px;bottom: 0px;z-index: 2000;background-color: rgb(29, 29, 29);color: white;text-align: center;pointer-events: all;"><img src="./img/arrowdown.png" id="menubtn1icon" style="pointer-events: none;width: 20px;transform: rotate(180deg);transition: all .2s ease;"></button>
+    <div id="menu1" style="overflow: hidden;">
+    </div>
+    <!--<webview id="browser" preload="./preload.js" class="brwsr" src="https://www.google.com"></webview>-->
+    
+    <p id="varstore1" style="opacity: 0;pointer-events: none;"></p>
+    <p id="varstore2" style="opacity: 0;pointer-events: none;"></p>
+    <button id="event1" style="opacity: 0;"></button>
+    <button id="event2" style="opacity: 0;"></button>
+    <script>
+
+        var menuopen=false;
+        var actualtab = 0;
+        var menutesting=false;
+
+
+function openmenu1(){
+if(!menuopen){
+document.getElementById('menu1').style.opacity='1';
+document.getElementById('menu1').style.height='300px';
+document.getElementById('menubtn1icon').style.transform='rotate(0deg)';
+document.getElementById('menubtn1').style.bottom='305px';
+addmenu1controls();
+}else{
+document.getElementById('menu1').style.opacity='0';
+document.getElementById('menu1').style.height='0px';
+document.getElementById('menubtn1icon').style.transform='rotate(180deg)';
+document.getElementById('menubtn1').style.bottom='0px';
+document.getElementById('menu1').innerHTML='';
+}
+menuopen=!menuopen;
+
+}
+function closemenu(){
+document.getElementById('menu1').style.opacity='0';
+document.getElementById('menu1').style.height='0px';
+document.getElementById('menubtn1icon').style.transform='rotate(180deg)';
+document.getElementById('menubtn1').style.bottom='0px';
+}
+var ytdownused=false;
+function addmenu1controls(){
+var urlnow=document.getElementById('wv-'+actualtab).src;
+var canadd=urlnow.includes('://www.youtube.')&&urlnow.includes('/watch?v');
+    if (canadd) {
+        var pasek = document.createElement('div');
+        pasek.className = 'pasek';
+        var menu1 = document.getElementById('menu1');
+        console.log(ytdownused);
+        if(!ytdownused){
+        pasek.addEventListener('click',(e)=>{
+        runYtDownloader(urlbox.value);
+        closemenu();
+        });
+        }
+        var img = document.createElement('img');
+        img.src = './img/yt.png';
+        img.width = 50;
+        img.style.position = 'relative';
+        img.style.left = '5px';
+        img.style.top = '7px';
+
+        var txt = document.createElement('span');
+        txt.textContent = 'Download video';
+        txt.style.color = 'white';
+        txt.style.position='relative';
+        txt.style.left='10px';
+        txt.style.top='-6px';
+        txt.pointerEvents='none';
+        pasek.appendChild(img);
+        pasek.appendChild(txt);
+        menu1.appendChild(pasek);
+        if(ytdownused){
+
+       
+        var loadingg=document.createElement('div');
+        loadingg.className='loading-circle';
+        loadingg.style='width: 25px;height: 25px;position: relative;z-index: 1003;top: -30px;left: 190px;animation: anim-spin 1s infinite ease';
+        var pasekthing=document.createElement('div');
+        pasekthing.className='pasekthing';
+        pasekthing.id='pasekthing';
+        loadingg.appendChild(pasekthing);
+        pasek.appendChild(loadingg);
+        }
+    } else {
+        console.error('Element with ID "menu1" not found.');
+    }
+}
+
+
+
+        const urlbox = document.getElementById('urlbox');
+
+        document.getElementById('goback').addEventListener('click', () => {
+            if (document.getElementById('wv-'+actualtab).canGoBack()) {
+                document.getElementById('wv-'+actualtab).goBack();
+            }
+        });
+
+        document.getElementById('refresh').addEventListener('click', () => {
+            document.getElementById('wv-'+actualtab).reload();
+        });
+
+        document.getElementById('goforward').addEventListener('click', () => {
+            if (document.getElementById('wv-'+actualtab).canGoForward()) {
+                document.getElementById('wv-'+actualtab).goForward();
+            }
+        });
+        document.addEventListener('keydown',(e)=>{
+        if (e.ctrlKey && e.key == 't') {
+        newtab();
+
+        
+    }
+        });
+        
+function msgbox(title,text){
+var dv=document.createElement('div');
+dv.className='pop-up-alert';
+var tx=document.createElement('span');
+tx.textContent=text;
+tx.style='text-align: center;color: white;font-family: \'Arial\';left: 50%;position: fixed;transform: translate(-50%);top: 50px;font-size: 16px';
+var tx2=document.createElement('span');
+tx2.textContent=title;
+tx2.style='text-align: center;color: white;font-family: \'Arial\';left: 50%;position: fixed;transform: translate(-50%);top: 5px;font-size: 25px';
+var consent=document.createElement('button');
+consent.className='btn2';
+consent.width='200px';
+consent.height='50px';
+consent.textContent='OK';
+consent.addEventListener('click',(e)=>{
+document.querySelectorAll('.pop-up-alert').forEach((popup)=>{
+popup.classList.add('popup-hideanim');
+});
+setTimeout(()=>{
+document.querySelectorAll('.pop-up-alert').forEach((popup)=>{
+popup.remove();
+});
+},199);
+});
+dv.appendChild(consent);
+dv.appendChild(tx);
+dv.appendChild(tx2);
+document.body.appendChild(dv);
+}
+function runYtDownloader(){
+ytdownused=true;
+document.getElementById('varstore2').innerHTML=urlbox.value;
+document.getElementById('event1').click();
+}
+document.addEventListener('DOMContentLoaded',(e)=>{
+newtab();
+document.getElementById('event2').addEventListener('click',(e)=>{
+ytdownused=false;
+msgbox('Download Completed!','Your video has been downloaded!')
+});
+if(menutesting){openmenu1();}
+document.getElementById('menubtn1').addEventListener('click',(e)=>{
+openmenu1();
+});
+getssl();
+});
+function getssl(){
+if(document.getElementById('wv-'+actualtab).src.includes('https://')){
+    document.getElementById('ssl-img').src='./img/lock.png';
+    }else{
+    document.getElementById('ssl-img').src='./img/padlock.png';
+}
+setTimeout(getssl,100);
+}
+        urlbox.addEventListener('keydown', (e) => {
+        
+    if (e.key === 'Enter') {
+    var rgx='^[a-zA-Z]+:\/\/';
+                var url = urlbox.value;
+                if (!url.match(rgx)) {
+                    url = 'http://' + url;
+                }
+                
+                document.getElementById('wv-'+actualtab).src=url;
+                
+            }
+        }
+        );
+        const defaultengine = 'https://www.google.com';
+
+        
+
+       
+
+        document.getElementById('addtab').addEventListener('click', () => {
+            newtab();
+        });
+
+        var tabsc = 0;
+        var faviconserver='https://www.google.com/s2/favicons?domain=';
+        function newtab() {
+            const wv = document.createElement('webview');
+            wv.preload = './preload.js';
+            wv.className = 'brwsr';
+            tabsc += 1;
+            wv.id = 'wv-' + tabsc;
+            document.body.appendChild(wv);
+            wv.src = defaultengine;
+            var tabscmoment=tabsc;
+            
+            wv.addEventListener('dom-ready', () => {
+            
+            wv.executeJavaScript('document.title').then((title) => {
+            console.log('tytul'+title);
+            if(title!=null){
+            if(title.length > 20) title = title.substring(0,20)+'...';
+            document.getElementById('bt-' + tabscmoment).querySelector('#textp').innerHTML = title;
+            }else{
+            document.getElementById('bt-' + tabscmoment).querySelector('#textp').innerHTML=document.getElementById('wv-'+tabsc).src;
+            }
+            });
+
+            wv.executeJavaScript('window.location.hostname').then((hname) => {
+            
+            if(hname!=null){
+            document.getElementById('bt-' + tabscmoment).querySelector('#favicon').src=faviconserver+hname;
+            }else{
+            
+            }
+            });
+
+        });
+            wv.addEventListener('did-navigate-in-page', (event) => {
+            //console.log('did-navigate-in-page:', event.url);
+            if (actualtab==parseInt(wv.id.replace('wv-',''))){
+            urlbox.value = event.url;
+            }
+            wv.addEventListener('did-start-download',(e)=>{
+            msgbox('loading..','downloading...');
+            });
+            
+        });
+            wv.style.height='calc(100%-100px)';
+            const bt = document.createElement('button');
+            bt.className = 'tab';
+            //bt.innerText = 'New tab';
+            bt.id = 'bt-' + tabsc;
+            const tx = document.createElement('p');
+            var text = document.createTextNode("New Tab");
+            tx.textContent='';
+            tx.id='textp';
+            tx.appendChild(text);
+            var favic=document.createElement('img');
+            favic.style='width: 16px;left: 10px;position: absolute;top: 10px;';
+            favic.src='';
+            favic.id='favicon';
+            bt.appendChild(favic);
+            bt.addEventListener('click', () => changetab(bt.id));
+            const cls = document.createElement('button');
+            cls.className = 'cls';
+            cls.innerHTML = 'x';
+            cls.addEventListener('click', () => removetab(bt.id));
+            bt.appendChild(cls);
+            bt.appendChild(tx);
+            document.getElementById('tabs').appendChild(bt);
+
+            //wv.style.display = 'none';
+            changetab(bt.id);
+        }
+        
+        function changetab(btnid) {
+            const tabtochange = parseInt(btnid.replace('bt-', ''));
+            document.querySelectorAll('.brwsr').forEach((webview) => {
+                webview.style.opacity = '0';
+                webview.style.pointerEvents='none';
+            });
+            document.getElementById('wv-' + tabtochange).style.opacity = '1';
+            document.getElementById('wv-' + tabtochange).style.width='100%';
+            document.getElementById('wv-' + tabtochange).style.pointerEvents='all';
+            //document.getElementById('wv-' + tabtochange).style.height='100%';
+            document.getElementById('wv-' + tabtochange).style.top='100px';
+            actualtab=tabtochange;
+            document.getElementById('varstore1').innerHTML=actualtab;
+            urlbox.value=document.getElementById('wv-' + tabtochange).src;
+            
+            document.querySelectorAll('.tab').forEach((tb) => {
+                tb.classList.remove('active');
+            });
+            document.getElementById('bt-' + actualtab).classList.add('active');
+            closemenu();
+        }
+
+        function removetab(btnid) {
+            const tabToRemove = document.getElementById(btnid);
+            const webviewToRemove = document.getElementById('wv-' + btnid.replace('bt-', ''));
+            tabToRemove.parentNode.removeChild(tabToRemove);
+            webviewToRemove.parentNode.removeChild(webviewToRemove);
+            try {
+                changetab(actualtab-1);
+            } catch (error) {
+
+            }
+            
+        }
+var alltabssize=0
+function dragloop(){
+    var wholesize = 50;
+    document.getElementById('tabs').querySelectorAll('.tab').forEach((tb) => {
+        var tabWidth = parseInt(window.getComputedStyle(tb).width.replace('px', ''));
+        
+        wholesize += isNaN(tabWidth) ? 0 : tabWidth;
+    });
+    alltabssize=wholesize+200;
+    //console.log(wholesize);
+    document.getElementById('dragapp').style.left = (wholesize + 250) + 'px';
+    document.getElementById('addtab').style.left=alltabssize+4+'px';
+    setTimeout(dragloop,100);
+}
+
+
+        dragloop();
+//By amadyreksio
+    </script>
+</body>
+</html>

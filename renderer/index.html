@@ -9,16 +9,16 @@
     <style>
         #upper {
             width: 100%;
-            height: 50px;
+            height: 35px;
             position: fixed;
-            top: 50px;
+            top: 45px;
             left: 0px;
             background-color: rgb(46, 46, 46);/*29*/
             
         }
         #tabs {
             width: 100%;
-            height: 50px;
+            height: 45px;
             position: fixed;
             top: 0px;
             left: 0px;
@@ -66,7 +66,7 @@
             background-color: rgba(17, 23, 41);
         }
         #urlbox {
-            margin-top: 6px;
+            margin-top: -2px;
             position: fixed;
             right: 5px;
             left: 115px;
@@ -85,7 +85,7 @@
         .tab {
             padding-left: 35px;
             padding-right: 35px;
-            height: 45px;
+            height: 35px;
             transform: translate(0px, 5px);
             color: white;
             background-color: rgb(66, 66, 66);
@@ -94,7 +94,7 @@
             border-right: solid 2px black;
             border-bottom: none;*/
             border: none;
-            border-radius: 16px 16px 16px 16px;
+            border-radius: 5px;
             font-size: 15px;
             transition: all .2s ease;
             position: relative;
@@ -104,6 +104,9 @@
             background: none;
             background-color: rgb(100, 100, 100);
         }
+        .tab:hover .cls{
+        opacity: 1;
+        }
         .tab.active {
             background-color: rgb(80, 80, 80);
             
@@ -111,18 +114,21 @@
         }
         .cls {
             position: absolute;
-            top: -5px;
-            right: -25px;
-            width: 25px;
-            height: 25px;
-            border-radius: 25px;
+            top: 7px;
+            right: -15px;
+            width: 20px;
+            height: 20px;
+            border-radius: 5px;
             border: none;
             transform: translate(-20px);
             font-weight: bold;
             transition: all .2s ease, border 10s ease;
+            background-color: transparent;
+            color: white;
+            opacity: 0;
         }
         .cls:hover {
-            background-color: red;
+            background-color: rgb(122, 122, 122);
             color: white;
         }
         .cls:active {
@@ -202,6 +208,15 @@
         .popup-hideanim{
         animation: pop-up-hide .2s ease;
         }
+        .popup-showanim{
+        animation: pop-up-showup .2s ease;
+        }
+        .popup-hideanim-400ms{
+        animation: pop-up-hide .4s ease;
+        }
+        .popup-showanim-400ms{
+        animation: pop-up-showup .4s ease;
+        }
         .overly{
         width: 240px;
         height: 100%;
@@ -232,39 +247,159 @@
         -webkit-user-select: none;
         -webkit-app-region: drag;
         }
-        .win-manage-btn{
-        width: 25px;
-        height: 25px;
+        .win-manage-btn {
+        
+        
         border: none;
-        background-color: rgb(66,66,66);
-        border-radius: 100%;
+        
+        
         margin-left: auto;
         transition: all .2s ease;
+        width: 50px;
+        height: 25px;
+        border-radius: 5px;
+        background-color: transparent;
         }
-        .win-manage-btn:active{
+        .win-manage-btn:active {
         transform: scale(0.9);
         }
-        .win-manage-btn:hover{
-        background-color: rgb(49, 49, 49);
+        .win-manage-btn:hover {
+        background-color: rgb(73, 73, 73);
         }
-        .win-manage-btn-icon{
+        .win-manage-btn-icon {
         pointer-events: none;
         width: 20px;
         position: relative;
         top: 1px;
-        left: -4px;
+        
         }
         #goback{
         height: 30px;
         width: 30px;
+        position: relative;
+        top: -12px;
         }
         #goforward{
         height: 30px;
         width: 30px;
+        position: relative;
+        top: -12px;
         }
         #refresh{
         height: 30px;
         width: 30px;
+        position: relative;
+        top: -12px;
+        
+        }
+        #history-container{
+        width: 90%;
+        height: 90%;
+        background-color: rgb(25,25,25);
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%,-50%);
+        border-radius: 16px;
+        box-shadow: 5px 5px 10px black;
+        }
+        .list-elem{
+        width: calc(100% - 20px);
+        height: 50px;
+        background-color: rgb(25,25,25);
+        position: relative;
+        top: 50px;
+        border-radius: 5px;
+        margin-top: 5px;
+        transition: all .2s ease;
+        color: white;
+        font-family: 'Calibri';
+        }
+        .list-elem:active{
+        transform: scale(0.9);
+        }
+        .list-elem:hover{
+        background-color: rgb(67, 67, 67);
+        }
+        #close{
+        width: 50px;
+        height: 25px;
+        border-radius: 5px;
+        background-color: transparent;
+        }
+        #close:hover{
+        background-color: red;
+        }
+        #addtab {
+        margin-top: -5px;
+        }
+        #BrowserMenu{
+        width: 200px;
+        height: 0px;
+        position: fixed;
+        top: 45px;
+        left: 5px;
+        background-color: rgb(28, 28, 28);
+        border-radius: 5px;
+        transition: all .2s ease;
+        z-index: 9999;
+        overflow: hidden;
+        opacity: 0;
+        pointer-events: none;
+        }
+        .menu-item{
+        width: 100%;
+        height: 50px;
+        background-color: rgb(28, 28, 28);
+        margin-bottom: 5px;
+        transition: all .2s ease;
+        border-radius: 5px;
+        text-align: center;
+        color: white;
+        font-family: 'Calibri';
+        font-size: 15px;
+        
+        }
+        .menu-item:hover{
+        background-color: rgb(50,50,50);
+        }
+        #logo-div:hover {
+        background-color: rgb(100,100,100);
+        }
+        .separator {
+        width: 100%;
+        height: 3px;
+        background-color: rgb(63, 63, 63);
+        border-radius: 5px;
+        }
+        @keyframes spin-in-place{
+        0%{transform: rotate(0deg);}
+        100%{transform: rotate(360deg);}
+        }
+        .anim-spin-in-place{
+        animation: spin-in-place .5s ease;
+        }
+        @keyframes spin-in-place-rev{
+        0%{transform: rotate(360deg);}
+        100%{transform: rotate(0deg);}
+        }
+        .anim-spin-in-place-rev{
+        animation: spin-in-place-rev .5s ease;
+        }
+        .btn-3{
+        background-color: transparent;
+        border: none;
+        width: 35px;
+        height: 35px;
+        border-radius: 16px;
+        transition: all .2s ease;
+        }
+        .btn-3:hover{
+        background-color: rgba(255, 255, 255, 0.148);
+        border-radius: 5px;
+        }
+        .btn-3:active{
+        transform: scale(0.9);
         }
     </style>
 </head>
@@ -288,18 +423,19 @@
         
         <div id="tabs">
             <span id="dragapp"></span>
-        <div style="width: 200px;height: 45px;background-color: rgb(66,66,66);border-radius: 16px;top: 5px;position: relative;overflow: hidden;padding-left: 10px;margin-left: 5px;">
-            <img src="./icon.png" width="40px" style="padding: 5px;position: relative;top: -3px;">
-            <h3 style="position: relative;top: -65px;left: 50px;color: white;font-family: 'Calibri';">AmadyBrowser</h5>
-        </div>
+        
+            <!--<img id="logo" src="./icon.png" width="25px" height="25px" style="padding: 5px;position: relative;top: -5px;background-color: rgb(66,66,66);border-radius: 5px;margin-top: 10px;margin-left: 5px;">-->
+            <div id="logo-div" style="padding: 5px;position: relative;top: -5px;background-color: rgb(66,66,66);border-radius: 5px;margin-top: 10px;margin-left: 5px;"><img src="./icon.png" width="25px" style="pointer-events: none;"></div>
+            
+        
         <div style="width: 10px;"></div>
         
-            <button class="btn" id="addtab" style="position: fixed; left: 500px; color: white; font-weight: bold;top: 10px;">+</button>
+            <button class="btn-3" id="addtab" style="position: fixed; left: 500px; color: white; font-weight: bold;top: 10px;">+</button>
         </div>
-        <img id="ssl-img" src="./img/lock.png" width="20px" style="background-color: rgb(66,66,66);position: relative;top: 12px;left: 120px;z-index: 100;">
+        <img id="ssl-img" src="./img/lock.png" width="20px" style="background-color: rgb(66,66,66);position: relative;top: 4px;left: 120px;z-index: 100;">
         <input type="text" id="urlbox"/>
-        <img src="./img/search.png" width="20px" style="right: 10px;position: fixed;top: 60px;background-color: rgb(66,66,66);">
-        <div id="xbtns" style="position: fixed;top: 5px;width: 83px;height: 50px;right: 5px;background-color: transparent;display: flex;">
+        <img src="./img/search.png" width="20px" style="right: 10px;position: fixed;top: 50px;background-color: rgb(66,66,66);">
+        <div id="xbtns" style="position: fixed;top: 5px;width: 150px;height: 50px;right: 5px;background-color: transparent;display: flex;">
         <button class="win-manage-btn" id="minimize"><img src="./img/minimize.png" id="minimize-icn" class="win-manage-btn-icon"></button>
         <button class="win-manage-btn" id="maximize"><img src="./img/maximize.png" id="maximize-icn" class="win-manage-btn-icon"></button>
         <button class="win-manage-btn" id="close"><img src="./img/close.png" class="win-manage-btn-icon"></button>
@@ -308,12 +444,35 @@
     <button class="btn" id="menubtn1" style="position: fixed;left: 0px;bottom: 0px;z-index: 2000;background-color: rgb(29, 29, 29);color: white;text-align: center;pointer-events: all;"><img src="./img/arrowdown.png" id="menubtn1icon" style="pointer-events: none;width: 20px;transform: rotate(180deg);transition: all .2s ease;"></button>
     <div id="menu1" style="overflow: hidden;">
     </div>
+    <div id="history-container" style="overflow: hidden;pointer-events: none;opacity: 0;z-index: -1;">
+    <div id="hist-upper" style="width: 100%;height: 50px;background-color: rgb(16,16,16);border-radius: 8px;position: fixed;">
+    <h1 style="position: relative;top: -20px;left: 10px;font-family: 'Calibri';color: white;">Search History</h1>
+    <img src="./img/close.png" id="cls-hist" width="30px" style="position: fixed;right: 10px;top: 10px;">
+    </div>
+    <div id="hist-list" style="width: 100%;height: calc(100% - 50px);background-color: rgb(16,16,16);border-radius: 8px;position: fixed;top: 55px;overflow-y: scroll;overflow-x: hidden;"></div>
+    
+    </div>
+    <div id="BrowserMenu">
+    <h1 style="width: 100%;text-align: center;font-size: 20px;font-family: 'Calibri';color: white;position: relative;top: -10px;">Browser menu</h1>
+    <div class="separator"></div>
+    <div class="separator" style="opacity: 0;"></div>
+    <div class="menu-item" id="history-btn"><span style="top: 14px;position: relative;pointer-events: none;">Search history</span></div>
+    <div class="separator"></div>
+    <div class="separator" style="opacity: 0;"></div>
+    <div class="menu-item"><span style="top: 14px;position: relative;pointer-events: none;">Settings</span></div>
+    
+    </div>
     <!--<webview id="browser" preload="./preload.js" class="brwsr" src="https://www.google.com"></webview>-->
     
     <p id="varstore1" style="opacity: 0;pointer-events: none;"></p>
     <p id="varstore2" style="opacity: 0;pointer-events: none;"></p>
-    <button id="event1" style="opacity: 0;"></button>
-    <button id="event2" style="opacity: 0;"></button>
+    <p id="varstore3" style="opacity: 0;pointer-events: none;"></p>
+    <button id="event1" style="opacity: 0;pointer-events: none;"></button>
+    <button id="event2" style="opacity: 0;pointer-events: none;"></button>
+    <button id="event3" style="opacity: 0;pointer-events: none;"></button>
+    <button id="event4" style="opacity: 0;pointer-events: none;"></button>
+    <p id="actualtab" style="opacity: 0;pointer-events: none;"></p>
+
     <script>
 
         var menuopen=false;
@@ -345,6 +504,7 @@ document.getElementById('menubtn1icon').style.transform='rotate(180deg)';
 document.getElementById('menubtn1').style.bottom='0px';
 }
 var ytdownused=false;
+var cdadownused=false;
 function addmenu1controls(){
 var urlnow=document.getElementById('wv-'+actualtab).src;
 var canadd=urlnow.includes('://www.youtube.')&&urlnow.includes('/watch?v');
@@ -388,7 +548,66 @@ var canadd=urlnow.includes('://www.youtube.')&&urlnow.includes('/watch?v');
         loadingg.appendChild(pasekthing);
         pasek.appendChild(loadingg);
         }
-    } else {
+    } else if(urlnow.includes('://www.cda.pl/video/')){
+
+
+
+        var pasek = document.createElement('div');
+        pasek.className = 'pasek';
+        var menu1 = document.getElementById('menu1');
+        
+        if(!cdadownused){
+        pasek.addEventListener('click',(e)=>{
+        runCDADownloader(urlbox.value);
+        closemenu();
+        });
+        }
+        var img = document.createElement('img');
+        img.src = './img/cda.png';
+        img.width = 38;
+        img.style.position = 'relative';
+        img.style.left = '5px';
+        img.style.top = '7px';
+
+        var txt = document.createElement('span');
+        txt.textContent = 'Download video';
+        txt.style.color = 'white';
+        txt.style.position='relative';
+        txt.style.left='10px';
+        txt.style.top='-6px';
+        txt.pointerEvents='none';
+        pasek.appendChild(img);
+        pasek.appendChild(txt);
+        menu1.appendChild(pasek);
+        if(cdadownused){
+
+       
+        var loadingg=document.createElement('div');
+        loadingg.className='loading-circle';
+        loadingg.style='width: 25px;height: 25px;position: relative;z-index: 1003;top: -30px;left: 190px;animation: anim-spin 1s infinite ease';
+        var pasekthing=document.createElement('div');
+        pasekthing.className='pasekthing';
+        pasekthing.id='pasekthing';
+        loadingg.appendChild(pasekthing);
+        pasek.appendChild(loadingg);
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    }else {
         console.error('Element with ID "menu1" not found.');
     }
 }
@@ -454,7 +673,47 @@ ytdownused=true;
 document.getElementById('varstore2').innerHTML=urlbox.value;
 document.getElementById('event1').click();
 }
+function runCDADownloader(){
+cdadownused=true;
+document.getElementById('varstore3').innerHTML=urlbox.value;
+document.getElementById('event3').click();
+}
+var programmenuopened=false;
 document.addEventListener('DOMContentLoaded',(e)=>{
+document.getElementById('BrowserMenu').querySelectorAll('.menu-item').forEach((mitem)=>{
+mitem.addEventListener('click',()=>{
+document.getElementById('logo-div').classList.remove('anim-spin-in-place');
+document.getElementById('logo-div').classList.remove('anim-spin-in-place-rev');
+document.getElementById('logo-div').classList.add('anim-spin-in-place-rev');
+document.getElementById('BrowserMenu').style.pointerEvents='none';
+document.getElementById('BrowserMenu').style.height='0px';
+});
+});
+document.getElementById('logo-div').addEventListener('click',()=>{
+if(programmenuopened){
+document.getElementById('logo-div').classList.remove('anim-spin-in-place');
+document.getElementById('logo-div').classList.remove('anim-spin-in-place-rev');
+document.getElementById('logo-div').classList.add('anim-spin-in-place-rev');
+document.getElementById('BrowserMenu').style.pointerEvents='none';
+document.getElementById('BrowserMenu').style.height='0px';
+
+setTimeout(()=>{
+document.getElementById('BrowserMenu').style.opacity='1';
+},200);
+}else{
+document.getElementById('logo-div').classList.remove('anim-spin-in-place');
+document.getElementById('logo-div').classList.remove('anim-spin-in-place-rev');
+document.getElementById('logo-div').classList.add('anim-spin-in-place');
+document.getElementById('BrowserMenu').style.pointerEvents='all';
+document.getElementById('BrowserMenu').style.opacity='1';
+document.getElementById('BrowserMenu').style.height='170px';
+
+}
+programmenuopened=!programmenuopened;
+});
+document.getElementById('history-container').style.opacity='0';//0
+document.getElementById('history-container').style.pointerEvents='none';//none
+document.getElementById('history-container').style.zIndex='-1';//-1
 newtab();
 document.getElementById('event2').addEventListener('click',(e)=>{
 ytdownused=false;
@@ -534,23 +793,39 @@ setTimeout(getssl,100);
         });
             wv.addEventListener('did-navigate-in-page', (event) => {
             //console.log('did-navigate-in-page:', event.url);
-            if (actualtab==parseInt(wv.id.replace('wv-',''))){
-            urlbox.value = event.url;
-            }
-            wv.addEventListener('did-start-download',(e)=>{
-            msgbox('loading..','downloading...');
-            });
+            //if (actualtab==parseInt(wv.id.replace('wv-',''))){
+            //urlbox.value = event.url;
+            //}
+           
+            
             
         });
+        wv.addEventListener('did-fail-load', (event) => {
+      const { errorCode, errorDescription, validatedURL, isMainFrame } = event;
+      console.log(`Failed to load: ${validatedURL}`);
+      console.log(`Error code: ${errorCode}`);
+      console.log(`Error description: ${errorDescription}`);
+      console.log(`Is main frame: ${isMainFrame}`);
+
+      if (errorCode === -6 || errorCode===-105) {
+        console.log('Page not found (404)');
+        wv.src='https://http.dog/404.jpg';
+      } else if (errorCode === -106) {
+        console.log('No internet connection');
+        
+      }
+    });
             wv.style.height='calc(100%-100px)';
             const bt = document.createElement('button');
             bt.className = 'tab';
             //bt.innerText = 'New tab';
             bt.id = 'bt-' + tabsc;
-            const tx = document.createElement('p');
+            const tx = document.createElement('div');
             var text = document.createTextNode("New Tab");
             tx.textContent='';
             tx.id='textp';
+            tx.style.position='-5px';
+            tx.style.top='0px';
             tx.appendChild(text);
             var favic=document.createElement('img');
             favic.style='width: 16px;left: 10px;position: absolute;top: 10px;';
@@ -568,6 +843,14 @@ setTimeout(getssl,100);
 
             //wv.style.display = 'none';
             changetab(bt.id);
+            var tcount=0;
+            document.getElementById('tabs').querySelectorAll('.tab').forEach((tabb)=>{
+            tcount+=1;
+            });
+            if(tcount>=7){
+            //moretabs
+            }
+
         }
         
         function changetab(btnid) {
@@ -604,24 +887,52 @@ setTimeout(getssl,100);
             }
             
         }
+
 var alltabssize=0
 function dragloop(){
+
     var wholesize = 50;
     document.getElementById('tabs').querySelectorAll('.tab').forEach((tb) => {
         var tabWidth = parseInt(window.getComputedStyle(tb).width.replace('px', ''));
         
         wholesize += isNaN(tabWidth) ? 0 : tabWidth;
     });
-    alltabssize=wholesize+200;
+    alltabssize=wholesize+25+tabsc;
     //console.log(wholesize);
     document.getElementById('dragapp').style.left = (wholesize + 250) + 'px';
     document.getElementById('addtab').style.left=alltabssize+4+'px';
     setTimeout(dragloop,100);
 }
+dragloop();
+urlloopcontrol();
+function urlloopcontrol(){
+setTimeout(()=>{
+urlloopcontrol();
+urlloop();
+},100)
+}
+var prevurl='';
+function urlloop(){
 
+if(document.activeElement==document.getElementById('urlbox')){
 
-        dragloop();
+}else{
+var actualwv=document.getElementById('wv-'+actualtab);
+urlbox.value=actualwv.src;
+if(prevurl==urlbox.value){
+
+}else{
+prevurl=urlbox.value;
+document.getElementById('event4').click();
+}
+}
+}
+function varloop(){
+document.getElementById('actualtab').innerHTML=actualtab;
+requestAnimationFrame(varloop);
+}
+varloop();
 //By amadyreksio
-    </script>
+</script>
 </body>
 </html>

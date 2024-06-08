@@ -6,6 +6,7 @@ Once you install it, you just have to enter the directory of the unzipped files,
 **run:**
 - npm i
 - npm start
+
 The app should start.
 
 Screenshots:

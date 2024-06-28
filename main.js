@@ -282,3 +282,4 @@ function createErrorWindow() {
     mainWindow.maximize();
     mainWindow.loadFile(path.join(__dirname, './renderer/PythonWarning.html'));
 }
+//By am@dyreks.io
